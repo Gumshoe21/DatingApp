@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")] // takes the first part of the name of the controller (users) and uses that as the route - /api/users - if nothing else is added to the route pattern besides /api/users, it will look for a HTTP GET method at this route and exec it
-public class UsersController : ControllerBase
+public class UsersController : BaseApiController
 {
 	private readonly DataContext _context; // this will give us the ability to use this field in the rest of our methods
 										   // we now need access to our db so we can quewry ther users and return them from our API dcontroller, so we'll use a constructor
