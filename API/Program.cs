@@ -19,7 +19,15 @@ builder.Services.AddDbContext<DataContext>(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors();
 var app = builder.Build();
+// strategic placement of UseCors right after we build our app.
+// UseCors... specify to builder that we allow any header and any method with the origins specified
+// Adds the "Access-Control-Allow-Origin" header of "http://localhost:4200" to our response headers, so if you go to localhost:4200, open up Network tab in devtools, under "users" on the left it will show you Headers on the right
+
+// regarding Google Chrome not trusting my ssl cert... someone said:
+// "I did find workaround by enabling chrome://flags/#allow-insecure-localhost disabled. This removes the 'connection not secure warning' in my case and a grey lock with indicates connection is secure and certificate is valid can be seen."
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
