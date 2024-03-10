@@ -1,10 +1,12 @@
 ﻿using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
+[Authorize]
 public class UsersController : BaseApiController
 {
 	private readonly DataContext _context; // this will give us the ability to use this field in the rest of our methods
@@ -17,6 +19,7 @@ public class UsersController : BaseApiController
 	}
 
 	// a task represents an asynchronous operation that can return a value.
+	[AllowAnonymous]
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
 	{
